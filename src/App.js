@@ -23,8 +23,15 @@ function App() {
   }, [runTime])
 
   const handleClickAdd = () => setCounter(counter + 1)
-  const handleClickSub = () => setCounter(counter - 1)
+
+  const handleClickSub = () => {
+    if(counter > 0) {
+      setCounter(counter - 1)
+    }
+  }
+
   const clickStart = () => setRunTime(!runTime)
+
   const clickRestart = () => {
     setRunTime(false)
     setClock(0)
@@ -35,8 +42,8 @@ function App() {
       <Counter text={counter} />
       <Button text="+" onClick={handleClickAdd} />
       <Button text="-" onClick={handleClickSub} />
-      <Timer time={clock} />
-      <Button text="Iniciar" onClick={clickStart} />
+      { counter > 0 && <Timer time={clock / counter} /> }
+      <Button text={ runTime ? "Pausar" : "Iniciar" } onClick={clickStart} />
       <Button text="Reiniciar" onClick={clickRestart} />
     </div>
   );
